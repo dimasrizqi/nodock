@@ -19,7 +19,7 @@ RUN groupadd -r www-app &&\
 
 RUN mkdir -p /home/www-app &&\
     chmod 777 /home/www-app -R
-
+RUN pwd
 # Install the specified NODE_VERSION or grab latest
 RUN n "$NODE_VERSION"
 
@@ -29,8 +29,8 @@ RUN if [ ${YARN} = true ]; then \
     npm install -g yarn \
 ;fi
 
-COPY scripts/run-nodock.sh /usr/bin/run-nodock
+#COPY scripts/run-nodock.sh /usr/bin/run-nodock
 
-RUN chmod 700 /usr/bin/run-nodock
+#RUN chmod 700 /usr/bin/run-nodock
 
 WORKDIR /opt/app/

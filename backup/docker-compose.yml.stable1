@@ -1,18 +1,6 @@
 version: '3.3'
 
 services:
-    node2:
-        build:
-            context: ./node
-            args:
-                - NODE_VERSION=latest
-                - PROJECT_PATH=/opt/app
-                - NODE_ENV=production
-                - YARN=false
-        volumes:
-            - ../app/api.pasarnegeri.com:/opt/app
-        entrypoint: run-nodock "node index.js"
-        tty: true
 
     node:
         build:
@@ -49,12 +37,11 @@ services:
                 - WEB_REVERSE_PROXY_PORT=8000
                 - WEB_SSL=true
                 - SELF_SIGNED=false
-                - NO_DEFAULT=true
+                - NO_DEFAULT=false
         volumes:
             - ./certbot/letsencrypt/:/var/www/letsencrypt
             - ./data/logs/nginx/:/var/log/nginx
             - ./certbot/certs/:/var/certs
-            - ./nginx/sites/:/etc/nginx/sites-available
         ports:
             - "80:80"
             - "443:443"
@@ -70,7 +57,7 @@ services:
           - ./certbot/letsencrypt/:/var/www/letsencrypt
           - ./certbot/certs/:/var/certs
         environment:
-          - CN=api.pasarnegeri.com
+          - CN=pasarnegeri.com
           - EMAIL=dimasrizqi@gmail.com
 
     workspace:
